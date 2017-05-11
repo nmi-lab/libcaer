@@ -120,10 +120,10 @@ int main(void) {
 
 			// Packet 0 is always the special events packet for DVS128, while packet is the polarity events packet.
 			if (i == POLARITY_EVENT) {
-				caerPolarityEventPacket polarity = (caerPolarityEventPacket) packetHeader;
+				caerPolarityEventPacket ev = (caerPolarityEventPacket) packetHeader;
 
 				// Get full timestamp and addresses of first event.
-				caerPolarityEvent firstEvent = caerPolarityEventPacketGetEvent(polarity, 0);
+				caerPolarityEvent firstEvent = caerPolarityEventPacketGetEvent(ev, 0);
 
 				int32_t ts = caerPolarityEventGetTimestamp(firstEvent);
 				uint16_t x = caerPolarityEventGetX(firstEvent);
