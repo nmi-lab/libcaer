@@ -4,6 +4,7 @@
 #include "devices/davis.h"
 #include "ringbuffer/ringbuffer.h"
 #include "usb_utils.h"
+#include "autoexposure.h"
 #include <stdatomic.h>
 
 #if defined(HAVE_PTHREADS)
@@ -78,7 +79,6 @@ struct davis_state {
 	// APS specific fields
 	int16_t apsSizeX;
 	int16_t apsSizeY;
-	uint16_t apsADCShift;
 	bool apsInvertXY;
 	bool apsFlipX;
 	bool apsFlipY;
@@ -97,6 +97,10 @@ struct davis_state {
 	uint16_t apsROISizeY[APS_ROI_REGIONS_MAX];
 	uint16_t apsROIPositionX[APS_ROI_REGIONS_MAX];
 	uint16_t apsROIPositionY[APS_ROI_REGIONS_MAX];
+	atomic_bool apsAutoExposureEnabled;
+	atomic_uint_fast32_t apsAutoExposureLastSetValue;
+	atomic_uint_fast32_t apsAutoExposureNewValue;
+	struct auto_exposure_state apsAutoExposureState;
 	// IMU specific fields
 	bool imuIgnoreEvents;
 	bool imuFlipX;

@@ -8,6 +8,17 @@
 namespace libcaer {
 namespace log {
 
+// Undefine the log-level names, to avoid conflicts with macros
+// on Windows/MinGW for example.
+#undef EMERGENCY
+#undef ALERT
+#undef CRITICAL
+#undef ERROR
+#undef WARNING
+#undef NOTICE
+#undef INFO
+#undef DEBUG
+
 enum class logLevel {
 	EMERGENCY = 0,
 	ALERT = 1,
@@ -22,8 +33,12 @@ enum class logLevel {
 void logLevelSet(logLevel l) noexcept;
 logLevel logLevelGet() noexcept;
 void fileDescriptorsSet(int fd1, int fd2) noexcept;
+int fileDescriptorsGetFirst() noexcept;
+int fileDescriptorsGetSecond() noexcept;
 void log(logLevel l, const char *subSystem, const char *format, ...) noexcept;
 void logVA(logLevel l, const char *subSystem, const char *format, va_list args) noexcept;
+void logVAFull(int logFileDescriptor1, int logFileDescriptor2, uint8_t systemLogLevel, logLevel l,
+	const char *subSystem, const char *format, va_list args) noexcept;
 
 void logLevelSet(logLevel l) noexcept {
 	caerLogLevelSet(static_cast<enum caer_log_level>(static_cast<typename std::underlying_type<logLevel>::type>(l)));

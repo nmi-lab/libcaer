@@ -4,6 +4,7 @@ SET(LIBCAER_SRC_FILES
 	events.c
 	frame_utils.c
 	usb_utils.c
+	autoexposure.c
 	device.c
 	dvs128.c
 	davis_common.c
@@ -16,10 +17,11 @@ IF (ENABLE_OPENCV)
 	SET(LIBCAER_SRC_FILES ${LIBCAER_SRC_FILES} frame_utils_opencv.cpp)
 ENDIF()
 
+# Set in parent scope for info printout.
 SET(LIBCAER_SRC_FILES ${LIBCAER_SRC_FILES} PARENT_SCOPE)
 
-IF (UNIX AND NOT APPLE)
-	# Add --as-needed to linker flags for library.
+IF (OS_UNIX AND NOT OS_MACOSX)
+	# Add --as-needed to linker flags for libraries.
 	SET(CMAKE_SHARED_LINKER_FLAGS "-Wl,--as-needed")
 ENDIF()
 

@@ -1,3 +1,31 @@
+Release 2.0.3 - XX.05.2017 - IN_DEVELOPMENT
+NEW FEATURES
+- davis.h: added automatic exposure control, can be turned on/off with
+  the DAVIS_CONFIG_APS_AUTOEXPOSURE configuration parameter, defaults to off.
+- C++ events/frame.hpp: added new function getOpenCVMat() to frame event, if
+  OpenCV is enabled. Returns a cv::Mat representing the frame's pixels, with
+  support for deep-const by cloning (can be disabled for efficiency).
+
+BUG FIXES
+- libcaer.hpp: undefine log-level names to avoid name clashes.
+- DAVIS: removed variable APS ADC Shift, is not used by any camera currently
+  offered, all have 10 bits precision.
+- DAVIS: fix black APS pixels on very high illumination.
+- DAVIS240: fix low range of APS pixels due to reduced ADC dynamic range.
+
+
+Release 2.0.2 - 27.04.2017
+NEW FEATURES
+- Logging: added caerLogFileDescriptorsGetFirst(), caerLogFileDescriptorsGetSecond()
+  functions to get the two file descriptors where log messages go to.
+- Logging: added caerLogVAFull() function to allow full control over all
+  parameters involved in logging, especially the log-level.
+- Dynap-se: added support for experimental DYNAPSE_CONFIG_SPIKEGEN
+  control and improved DYNAPSE_CONFIG_SRAM control (thanks to Carsten Nielsen).
+- Updated C++ examples to use C++ logging functions.
+- Updated C++ interface to reflect above changes.
+
+
 Release 2.0.1 - 16.03.2017
 NOTE: this release is numbered 2.0.1 and not 2.0.0, because 2.0.0 was the
 development version. To ensure people can depend on the now actually released
@@ -82,6 +110,7 @@ NEW FEATURES
   standard computer graphics format (pixel (0, 0) in upper left
   corner) efficently.
 - davis.h: add DAVIS_CONFIG_APS_ADC_TEST_MODE parameter to APS module.
+
 
 Release 1.0.2 - 08.01.2016
 IMCOMPATIBLE CHANGES
